@@ -1,5 +1,5 @@
 <template>
-  <Karaoke />
+  <Karaoke style="height: 100vh;" />
 </template>
 
 <script>

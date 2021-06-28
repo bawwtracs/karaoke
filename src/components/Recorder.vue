@@ -13,7 +13,7 @@ export default {
       type: Boolean,
       default: false
     },
-    options: {
+    option: {
       type: Object,
       default() {
         return {}
@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     init() {
-      this.recorder = new Recorder(this.options)
+      this.recorder = new Recorder(this.option)
       this.recorder.onprogress = (params) => {
         if (this.debug) {
           console.log('duraion(s)', params.duration)
@@ -47,10 +47,7 @@ export default {
       }
     },
     destroy() {
-      const that = this
-      this.recorder.destroy().then(() => {
-        that.recorder = null
-      })
+      this.recorder.destroy().then(() => {})
     },
     start() {
       return this.recorder.start()

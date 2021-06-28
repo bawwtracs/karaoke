@@ -31,10 +31,25 @@ export default {
       aplayer: null
     }
   },
+  watch: {
+    music: {
+      handler() {
+        this.reload()
+      },
+      deep: true
+    }
+  },
   mounted() {
     this.init()
   },
+  beforeUnmount() {
+    this.destroy()
+  },
   methods: {
+    reload() {
+      this.destroy()
+      this.init()
+    },
     init() {
       this.aplayer = new APlayer({
         container: this.$refs.aplayer,
@@ -65,6 +80,9 @@ export default {
         // console.log('music pause')
         this.$emit('pause')
       })
+    },
+    destroy() {
+      this.aplayer.destroy()
     },
     play() {
       this.aplayer.seek(0)

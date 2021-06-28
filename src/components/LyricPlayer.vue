@@ -1,6 +1,6 @@
 <template>
   <div class="lyric">
-    <div v-for="(item, idx) in arr" v-show="item.show" :key="idx" :class="{'current': idx==current, 'line': true}">
+    <div v-for="(item, idx) in arr" v-show="item.show" :key="idx" :class="{'current': idx==current, 'line': true, [activeLyricClass]: true}">
       {{ item.text }}
     </div>
   </div>
@@ -29,6 +29,10 @@ export default {
       default() {
         return 12
       }
+    },
+    activeLyricClass: {
+      type: String,
+      default: 'active'
     }
   },
   data() {
@@ -57,7 +61,7 @@ export default {
       // console.log(this.current)
     })
   },
-  unmounted() {
+  beforeUnmount() {
     this.lyric = null
   },
   methods: {
