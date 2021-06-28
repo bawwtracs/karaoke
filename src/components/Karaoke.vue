@@ -161,6 +161,10 @@ export default {
     },
     showList() {
       this.list = true
+      this.pausePlayTheRecording()
+      this.$refs.musicPlayer.pause()
+      this.end()
+      this.finish = false
     },
     play() {
       this.finish = false
