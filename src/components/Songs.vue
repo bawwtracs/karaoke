@@ -1,18 +1,20 @@
 <template>
   <div class="songs">
     <div v-for="(item, idx) in songs" :key="idx" class="song">
-      <div class="thumb">
-        <van-image class="cover" :src="item.cover" :fit="'fill'" />
-      </div>
-      <div class="desc">
-        <div class="name">
-          {{ item.name }}
+      <template v-if="item.show !== false">
+        <div class="thumb">
+          <van-image class="cover" :src="item.cover" :fit="'fill'" />
         </div>
-        <div class="artist">
-          {{ item.artist }}
+        <div class="desc">
+          <div class="name">
+            {{ item.name }}
+          </div>
+          <div class="artist">
+            {{ item.artist }}
+          </div>
         </div>
-      </div>
-      <div class="button btn-grad" @click="play(idx)" />
+        <div class="button btn-grad" @click="play(idx)" />
+      </template>
     </div>
   </div>
 </template>
