@@ -1,5 +1,5 @@
 <template>
-  <Karaoke style="height: 100vh;" />
+  <Karaoke style="height: 100vh;" :options="options" />
 </template>
 
 <script>
@@ -9,6 +9,13 @@ export default {
   name: 'App',
   components: {
     Karaoke
+  },
+  data() {
+    return {
+      options: {
+        wrapperStyle: 'background: linear-gradient(to right bottom, rgb(232, 203, 192), rgb(99, 111, 164))'
+      }
+    }
   }
 }
 </script>

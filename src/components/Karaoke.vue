@@ -151,6 +151,7 @@ export default {
     }
   },
   mounted() {
+    this.option = Object.assign(this.option, this.options)
   },
   beforeUnmount() {
   },
