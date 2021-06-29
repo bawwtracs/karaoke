@@ -1,5 +1,5 @@
 <template>
-  <Karaoke style="height: 100vh;" :options="options" />
+  <Karaoke style="height: 100vh;" :options="options" @play="play" @list="list" />
 </template>
 
 <script>
@@ -15,6 +15,14 @@ export default {
       options: {
         wrapperStyle: 'background: linear-gradient(to right bottom, rgb(232, 203, 192), rgb(99, 111, 164))'
       }
+    }
+  },
+  methods: {
+    play() {
+      console.log('play')
+    },
+    list() {
+      console.log('list')
     }
   }
 }

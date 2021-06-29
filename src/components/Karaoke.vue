@@ -13,7 +13,7 @@
     </div>
     <div v-if="finish" class="hidden" :class="{'tools': option.tools && !list}">
       <van-button class="button" plain type="default" @click="showList">歌曲列表</van-button>
-      <van-button class="button" plain type="default" @click="replay">重录</van-button>
+      <van-button class="button" plain type="default" @click="replay1">重录</van-button>
       <van-button v-show="!playing" class="button" plain type="default" @click="playTheRecording">播放</van-button>
       <van-button v-show="playing" class="button" plain type="default" @click="pausePlayTheRecording">暂停</van-button>
       <van-button v-show="playing" class="button" plain type="default" @click="resumePlayTheRecording">继续</van-button>
@@ -224,6 +224,28 @@ export default {
             resolve(true)
           } else {
             this.$refs.musicPlayer.resume()
+            resolve(false)
+          }
+          Dialog.close()
+        })
+
+      Dialog.confirm({
+        title: '重新录制',
+        message: '确定要重新录制吗？',
+        beforeClose
+      })
+    },
+    replay1() {
+      this.pausePlayTheRecording()
+      const beforeClose = (action) =>
+        new Promise((resolve) => {
+          if (action === 'confirm') {
+            this.end()
+            this.$refs.musicPlayer.play()
+            this.play()
+            resolve(true)
+          } else {
+            this.resumePlayTheRecording()
             resolve(false)
           }
           Dialog.close()
