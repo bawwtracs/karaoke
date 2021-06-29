@@ -63,7 +63,7 @@ export default {
         tools: true, // 是否显示默认工具栏
         activeLyricClass: 'active', // 歌词当前进度行样式类
         wrapperStyle: `background: linear-gradient(to right bottom, rgb(232, 203, 192), rgb(99, 111, 164))`, // 录音页背景样式,
-        playingIndex: 1, // 正在播放的歌曲序号
+        playingIndex: 0, // 正在播放的歌曲序号
         songs: [{ // 伴奏文件及歌曲封面
           name: '我爱我的祖国',
           artist: '佚名',
