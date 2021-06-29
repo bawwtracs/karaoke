@@ -159,6 +159,7 @@ export default {
     playSong(idx) {
       this.option.playingIndex = idx
       this.list = false
+      this.$emit('play')
     },
     showList() {
       this.list = true
@@ -166,6 +167,7 @@ export default {
       this.$refs.musicPlayer.pause()
       this.end()
       this.finish = false
+      this.$emit('list')
     },
     play() {
       this.finish = false
