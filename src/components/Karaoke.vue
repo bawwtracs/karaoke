@@ -4,7 +4,7 @@
     <div :class="{'hidden': list}" class="ui">
       <Recorder ref="recorder" :debug="debug" :option="option" @onplayend="onplayend" />
       <LyricPlayer ref="lyricPlayer" :debug="debug" :lyric-arr="option.lyricArrs[option.playingIndex]" :rows="12" />
-      <MusicPlayer v-show="!finish" ref="musicPlayer" :debug="debug" :music="option.songs[option.playingIndex]" @play="play" @pause="toggle" @end="end" />
+      <MusicPlayer v-show="!finish" ref="musicPlayer" :debug="debug" :songs="option.songs" :idx="option.playingIndex" @play="play" @pause="toggle" @end="end" />
       <div v-show="finish" class="song-desc">
         <van-image round class="thumb" :src="option.songs[option.playingIndex].cover" :fit="'fill'" />
         <div class="name">{{ option.songs[option.playingIndex].name }}</div>

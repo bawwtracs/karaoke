@@ -18,12 +18,15 @@ export default {
       type: Boolean,
       default: false
     },
-    music: {
-      type: Object,
+    songs: {
+      type: Array,
       default() {
-        return {
-        }
+        return []
       }
+    },
+    idx: {
+      type: Number,
+      default: 0
     }
   },
   data() {
@@ -37,6 +40,9 @@ export default {
         this.reload()
       },
       deep: true
+    },
+    idx(val) {
+      this.switch(val)
     }
   },
   mounted() {
@@ -61,7 +67,7 @@ export default {
         order: 'list',
         preload: 'auto',
         volume: '0.6',
-        audio: [].concat(this.music),
+        audio: this.songs,
         mutex: true,
         lrcType: 0,
         listFolded: true,
@@ -80,6 +86,9 @@ export default {
         // console.log('music pause')
         this.$emit('pause')
       })
+    },
+    switch(val) {
+      this.aplayer.list.switch(val)
     },
     destroy() {
       this.aplayer.destroy()
