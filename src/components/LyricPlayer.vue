@@ -1,6 +1,6 @@
 <template>
   <div class="lyric">
-    <div v-for="(item, idx) in arr" v-show="item.show" :key="idx" :class="{'current': idx==current, 'line': true, [activeLyricClass]: true}">
+    <div v-for="(item, idx) in arr" v-show="item.show" :key="idx" :class="{[activeLyricClass]: idx==current, 'line': true}">
       {{ item.text }}
     </div>
   </div>
