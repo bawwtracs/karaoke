@@ -3,26 +3,55 @@
     <Songs :class="{'hidden': !list, 'list': true}" :songs="option.songs" @playSong="playSong" />
     <div :class="{'hidden': list}" class="ui">
       <Recorder ref="recorder" :debug="debug" :option="option" @onplayend="onplayend" />
-      <MusicPlayer v-show="!finish" ref="musicPlayer" :debug="debug" :music="option.songs[option.playingIndex]" @play="play" @pause="toggle" @end="end" />
       <LyricPlayer ref="lyricPlayer" :debug="debug" :lyric-arr="option.lyricArrs[option.playingIndex]" :active-lyric-class="option.activeLyricClass" :rows="12" />
+      <MusicPlayer v-show="!finish" ref="musicPlayer" :debug="debug" :music="option.songs[option.playingIndex]" @play="play" @pause="toggle" @end="end" />
+      <div v-show="finish" class="song-desc">
+        <van-image round class="thumb" :src="option.songs[option.playingIndex].cover" :fit="'fill'" />
+        <div class="name">{{ option.songs[option.playingIndex].name }}</div>
+      </div>
     </div>
     <div v-if="!finish" class="hidden" :class="{'tools': option.tools && !list}">
-      <van-button class="button" plain type="default" @click="showList">歌曲列表</van-button>
-      <van-button class="button" plain type="default" :disabled="!recording" @click="stop">结束录制</van-button>
-      <van-button class="button" plain type="default" :disabled="!recording" @click="replay">重录</van-button>
+      <div class="button" plain type="default" @click="showList">
+        <van-icon name="orders-o" />
+        <div>列表</div>
+      </div>
+      <div class="button" plain type="default" :disabled="!recording" @click="stop">
+        <van-icon name="stop-circle-o" />
+        <div>结束</div>
+      </div>
+      <div class="button" plain type="default" :disabled="!recording" @click="replay">
+        <van-icon name="replay" />
+        <div>重唱</div>
+      </div>
     </div>
     <div v-if="finish" class="hidden" :class="{'tools': option.tools && !list}">
-      <van-button class="button" plain type="default" @click="showList">歌曲列表</van-button>
-      <van-button class="button" plain type="default" @click="replay1">重录</van-button>
-      <van-button v-show="!playing" class="button" plain type="default" @click="playTheRecording">播放</van-button>
-      <van-button v-show="playing" class="button" plain type="default" @click="pausePlayTheRecording">暂停</van-button>
-      <van-button v-show="playing" class="button" plain type="default" @click="resumePlayTheRecording">继续</van-button>
+      <div class="button" plain type="default" @click="showList">
+        <van-icon name="orders-o" />
+        <div>列表</div>
+      </div>
+      <div class="button" plain type="default" @click="replay1">
+        <van-icon name="replay" />
+        <div>重唱</div>
+      </div>
+      <div v-show="!playing" class="button" plain type="default" @click="playTheRecording">
+        <van-icon name="play-circle-o" />
+        <div>播放</div>
+      </div>
+      <div v-show="playing" class="button" plain type="default" @click="resumePlayTheRecording">
+        <van-icon name="play-circle-o" />
+        <div>播放</div>
+      </div>
+      <div v-show="playing" class="button" plain type="default" @click="pausePlayTheRecording">
+        <van-icon name="pause-circle-o" />
+        <div>暂停</div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { Button } from 'vant'
+import { Icon } from 'vant'
+import { Image } from 'vant'
 import { Dialog } from 'vant'
 import Songs from './Songs'
 import Recorder from './Recorder'
@@ -32,7 +61,8 @@ import LyricPlayer from './LyricPlayer'
 export default {
   name: 'Karaoke',
   components: {
-    [Button.name]: Button,
+    [Icon.name]: Icon,
+    [Image.name]: Image,
     Songs,
     Recorder,
     MusicPlayer,
@@ -69,73 +99,20 @@ export default {
           artist: '佚名',
           url: 'https://yisoft.com.cn/inspection/karaoke/1.mp3',
           cover: 'https://yisoft.com.cn/inspection/karaoke/1.png'
-          // lrc: 'https://yisoft.com.cn/inspection/karaoke/1.lrc'
         },
         {
           name: '妈妈教我一支歌',
           artist: '佚名',
           url: 'https://yisoft.com.cn/inspection/karaoke/2.mp3',
           cover: 'https://yisoft.com.cn/inspection/karaoke/2.png'
-          // lrc: 'https://yisoft.com.cn/inspection/karaoke/2.lrc'
         }],
         lyricArrs: [ // 歌词数组
           [
             '[00:16.35] 啊啊啊',
-            '[00:50.71] 你如仙境的村落',
-            '[00:54.73] 你如星光的灯火',
-            '[00:58.99] 如诗如画的是你',
-            '[01:02.83] 是你万里的山河',
-            '[01:07.77] 望江山的史册',
-            '[01:11.95] 展人民的杰作',
-            '[01:16.50] 方圆九州的沃土',
-            '[01:20.51] 耕耘你新析传说',
-            '[01:26.97] 我爱我的祖国',
-            '[01:31.22] 我亲我的祖国',
-            '[01:35.34] 亲你用我最暧的心窝',
-            '[01:44.02] 我爱我的祖国',
-            '[01:48.47] 我亲我的祖国',
-            '[01:52.60] 爱你是我一生的寄托',
-            '[02:18.65] 你如编制的阡陌',
-            '[02:22.53] 你如瑶池的湖泊',
-            '[02:27.18] 如情如梦的是你',
-            '[02:30.75] 是你百姓的生活',
-            '[02:35.64] 望创业的气魄',
-            '[02:39.68] 展理想的收获',
-            '[02:43.98] 男女老少的心中',
-            '[02:48.28] 飞出你爱的恋歌',
-            '[02:54.90] 我爱我的祖国',
-            '[02:59.04] 我亲我的祖国',
-            '[03:03.42] 亲你用我最暧的心窝',
-            '[03:12.00] 我爱我的祖国',
-            '[03:16.16] 我亲我的祖国',
-            '[03:20.62] 爱你是我一生的寄托',
-            '[03:29.14] 我爱我的祖国',
-            '[03:33.41] 我亲我的祖国',
-            '[03:37.58] 亲你用我最暧的心窝',
-            '[03:46.25] 我爱我的祖国',
-            '[03:50.25] 我亲我的祖国',
-            '[03:54.93] 爱你是我一生的寄托',
             '[04:04.33] 啊'
           ],
           [
             '[00:04.11] 妈妈教我一支歌 - 沈小岑',
-            '[00:08.37] 词：杨涌',
-            '[00:12.66] 曲：刘虹',
-            '[00:15.98] 妈妈教我一支歌',
-            '[00:22.71] 没有共产党就没有新中国',
-            '[00:29.10] 这支歌从妈妈心头飞出',
-            '[00:35.93] 这支歌伴随她走遍祖国山河',
-            '[00:46.46] 啊',
-            '[00:53.24] 这支歌伴随她走遍祖国山河',
-            '[01:13.96] 我唱妈妈教的歌',
-            '[01:20.93] 没有共产党就没有新中国',
-            '[01:27.62] 这支歌从我的心上飞起',
-            '[01:34.46] 这支歌鼓舞我建设新生活',
-            '[01:46.77] 我教儿女一支歌',
-            '[01:51.70] 没有共产党就没有新中国',
-            '[01:57.05] 这支歌飞进幼小心田',
-            '[02:05.36] 这支歌世世代代永不落',
-            '[02:18.17] 这支歌世世代代永不落',
             '[02:12.29] 这支歌世世代代永不落'
           ]
         ]
@@ -236,7 +213,9 @@ export default {
       })
     },
     replay1() {
-      this.pausePlayTheRecording()
+      if (this.playing) {
+        this.pausePlayTheRecording()
+      }
       const beforeClose = (action) =>
         new Promise((resolve) => {
           if (action === 'confirm') {
@@ -245,7 +224,9 @@ export default {
             this.play()
             resolve(true)
           } else {
-            this.resumePlayTheRecording()
+            if (this.playing) {
+              this.resumePlayTheRecording()
+            }
             resolve(false)
           }
           Dialog.close()
@@ -300,15 +281,38 @@ export default {
     display: none;
   }
 
+  .song-desc{
+    background: #fff;
+    border-radius: 7px;
+    width: 90%;
+    height: 66px;
+    margin-left: 5%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    .thumb{
+      margin: 0 20px 0 10px;
+      flex-shrink: 0;
+      height: 55px;
+      width: 55px;
+    }
+    .name{
+      flex-grow: 1;
+      text-align: left;
+      font-weight: bold;
+    }
+  }
+
   .tools{
     flex-grow: 0;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     padding: .5rem 0;
     .button{
-      margin: 0 .2rem;
-      border-radius: 15px;
-      background: none;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      justify-content: center;
       color: #fff;
     }
   }
