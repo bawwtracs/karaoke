@@ -39,6 +39,7 @@ export default {
   },
   computed: {
     arr() {
+      this.init()
       return this.lyricArr.map((item, idx) => {
         if (idx < this.rows && this.current < this.rows) {
           return { text: item.replace(/\[.*\]/g, ''), show: true }
@@ -52,15 +53,18 @@ export default {
     }
   },
   mounted() {
-    this.lyric = new Lyric(this.lyricArr.join('\n'), (handler) => {
-      this.current = handler.lineNum
-      // console.log(this.current)
-    })
+    this.init()
   },
   beforeUnmount() {
     this.lyric = null
   },
   methods: {
+    init() {
+      this.lyric = new Lyric(this.lyricArr.join('\n'), (handler) => {
+        this.current = handler.lineNum
+      // console.log(this.current)
+      })
+    },
     play() {
       // console.log('lyric start')
       this.lyric.seek(0)
@@ -87,7 +91,7 @@ export default {
   display: flex;
   flex-flow: column nowrap;
   overflow: hidden;
-  justify-content: space-between;
+  justify-content: space-around;
 
   .active{
     color: #fff
