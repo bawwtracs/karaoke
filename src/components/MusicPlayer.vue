@@ -35,7 +35,7 @@ export default {
     }
   },
   watch: {
-    music: {
+    songs: {
       handler() {
         this.reload()
       },
