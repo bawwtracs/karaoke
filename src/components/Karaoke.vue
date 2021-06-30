@@ -15,11 +15,11 @@
         <van-icon name="orders-o" />
         <div>列表</div>
       </div>
-      <div class="button" plain type="default" :disabled="!recording" @click="stop">
+      <div class="button" plain type="default" :class="{'disabled': !recording}" @click="stop">
         <van-icon name="stop-circle-o" />
         <div>结束</div>
       </div>
-      <div class="button" plain type="default" :disabled="!recording" @click="replay">
+      <div class="button" plain type="default" :class="{'disabled': !recording}" @click="replay">
         <van-icon name="replay" />
         <div>重唱</div>
       </div>
@@ -171,6 +171,9 @@ export default {
       this.$refs.lyricPlayer.stop()
     },
     stop() {
+      if (!this.recording) {
+        return
+      }
       this.$refs.musicPlayer.pause()
       const beforeClose = (action) =>
         new Promise((resolve) => {
@@ -191,6 +194,9 @@ export default {
       })
     },
     replay() {
+      if (!this.recording) {
+        return
+      }
       this.$refs.musicPlayer.pause()
       const beforeClose = (action) =>
         new Promise((resolve) => {
@@ -309,6 +315,9 @@ export default {
     justify-content: space-around;
     padding: .5rem 0;
     .button{
+      &.disabled{
+        color: #bebebe;
+      }
       display: flex;
       flex-flow: column nowrap;
       align-items: center;
