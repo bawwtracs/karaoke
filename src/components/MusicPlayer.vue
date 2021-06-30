@@ -64,7 +64,7 @@ export default {
         autoplay: false,
         theme: '#b7daff',
         loop: 'none',
-        order: 'list',
+        order: '曲线救国',
         preload: 'auto',
         volume: '0.6',
         audio: this.songs,
