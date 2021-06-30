@@ -3,7 +3,7 @@
     <Songs :class="{'hidden': !list, 'list': true}" :songs="option.songs" @playSong="playSong" />
     <div :class="{'hidden': list}" class="ui">
       <Recorder ref="recorder" :debug="debug" :option="option" @onplayend="onplayend" />
-      <LyricPlayer ref="lyricPlayer" :debug="debug" :lyric-arr="option.lyricArrs[option.playingIndex]" :active-lyric-class="option.activeLyricClass" :rows="12" />
+      <LyricPlayer ref="lyricPlayer" :debug="debug" :lyric-arr="option.lyricArrs[option.playingIndex]" :rows="12" />
       <MusicPlayer v-show="!finish" ref="musicPlayer" :debug="debug" :music="option.songs[option.playingIndex]" @play="play" @pause="toggle" @end="end" />
       <div v-show="finish" class="song-desc">
         <van-image round class="thumb" :src="option.songs[option.playingIndex].cover" :fit="'fill'" />
@@ -91,7 +91,6 @@ export default {
         sampleRate: 16000, // 采样率，支持 11025、16000、22050、24000、44100、48000，根据浏览器默认值，我的chrome是48000
         numChannels: 1, // 声道，支持 1 或 2， 默认是1
         tools: true, // 是否显示默认工具栏
-        activeLyricClass: 'active', // 歌词当前进度行样式类
         wrapperStyle: `background: linear-gradient(to right bottom, rgb(232, 203, 192), rgb(99, 111, 164))`, // 录音页背景样式,
         playingIndex: 0, // 正在播放的歌曲序号
         songs: [{ // 伴奏文件及歌曲封面
