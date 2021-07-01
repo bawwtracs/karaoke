@@ -33,13 +33,12 @@ export default {
   },
   data() {
     return {
-      current: 0,
+      current: -1,
       lyric: null
     }
   },
   computed: {
     arr() {
-      this.init()
       return this.lyricArr.map((item, idx) => {
         if (idx < this.rows && this.current < this.rows) {
           return { text: item.replace(/\[.*\]/g, ''), show: true }
@@ -52,25 +51,29 @@ export default {
       })
     }
   },
-  mounted() {
-    this.init()
+  watch: {
+    lyricArr: {
+      handler(val) {
+        this.init(val.join('\n'))
+      },
+      deep: true
+    }
   },
-  beforeUnmount() {
-    this.lyric = null
+  mounted() {
+    this.init(this.lyricArr.join('\n'))
   },
   methods: {
-    init() {
+    init(val) {
       if (this.lyric) {
         this.lyric.stop()
       }
-      this.lyric = new Lyric(this.lyricArr.join('\n'), (handler) => {
+      this.lyric = new Lyric(val, (handler) => {
         this.current = handler.lineNum
         // console.log(this.current)
       })
     },
     play() {
       // console.log('lyric start')
-      this.lyric.seek(0)
       this.lyric.play()
     },
     toggle() {
@@ -79,8 +82,7 @@ export default {
     },
     stop() {
       // console.log('lyric stop')
-      this.current = 0
-      this.lyric.seek(0)
+      this.current = -1
       this.lyric.stop()
     }
   }
