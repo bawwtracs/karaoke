@@ -60,9 +60,12 @@ export default {
   },
   methods: {
     init() {
+      if (this.lyric) {
+        this.lyric.stop()
+      }
       this.lyric = new Lyric(this.lyricArr.join('\n'), (handler) => {
         this.current = handler.lineNum
-      // console.log(this.current)
+        // console.log(this.current)
       })
     },
     play() {
