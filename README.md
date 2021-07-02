@@ -5,7 +5,7 @@ javascript karaoke
 ## 使用(Vue3.x)
 安装：
 ```
-npm install karaoke
+npm install karaoke-h5
 ```
 引入：
 ```
