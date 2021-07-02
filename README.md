@@ -2,7 +2,7 @@
 h5，K歌
 javascript karaoke
 
-## 使用(Vue3.x)
+## 使用
 安装：
 ```
 npm install karaoke-h5
